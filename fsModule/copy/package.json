@@ -1,0 +1,21 @@
+{
+  "name": "prath-copy-cli",
+  "version": "1.0.0",
+  "description": "A simple CLI to copy a file from one path to another",
+  "bin": {
+    "prathcopy": "./index.js"
+  },
+  "type": "module",
+  "keywords": [
+    "cli",
+    "copy",
+    "file",
+    "fs",
+    "node"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "prath-copy-cli": "^1.0.0"
+  }
+}

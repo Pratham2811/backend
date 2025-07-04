@@ -1,0 +1,38 @@
+ How to Use EventEmitter Step-by-Step
+✅ 1. Import & Create
+
+const EventEmitter = require('events');
+
+const myEmitter = new EventEmitter();
+
+✅ 2. Add Event Listener (on, once)
+
+myEmitter.on('greet', (name) => {
+  console.log(`Hello, ${name}!`);
+});
+
+    on → Listen every time it's emitted
+
+    once → Listen only the first time
+
+✅ 3. Emit the Event
+
+myEmitter.emit('greet', 'Prath');
+
+🧪 FULL WORKING EXAMPLE
+
+const EventEmitter = require('events');
+
+const emitter = new EventEmitter();
+
+// Add a listener
+emitter.on('orderPlaced', (item, quantity) => {
+  console.log(`Order received: ${quantity} ${item}(s)`);
+});
+
+// Emit the event
+emitter.emit('orderPlaced', 'Pizza', 2);
+
+Output:
+
+Order received: 2 Pizza(s)

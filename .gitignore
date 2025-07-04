@@ -1,0 +1,10 @@
+node_modules/
+**/node_modules/
+*.mp4
+*.zip
+*.exe
+*.psd
+node_modules/
+dist/
+build/
+.git

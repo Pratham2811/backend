@@ -1,0 +1,15 @@
+{
+    "name": "prathmsnpm",
+    "version": "1.0.0",
+    "main": "math.cjs",
+    "module": "math.mjs",
+    "exports": {
+        "import": "./math.mjs",
+        "require": "./math.cjs"
+    },
+    "dependencies": {
+        "chai": "^5.2.0",
+        "prathmsnpm": "^1.0.0",
+        "procodrr": "^1.0.1"
+    }
+}

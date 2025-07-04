@@ -1,0 +1,17 @@
+
+
+
+4:12:06 pm
+ENOENT: no such file or directory, open 'D:\FullStackDev\Backedn\fsModule\writingFile\dev.jpg'
+Error: ENOENT: no such file or directory, open 'D:\FullStackDev\Backedn\fsModule\writingFile\dev.jpg'
+    at async open (node:internal/fs/promises:639:25)
+    at async readFile (node:internal/fs/promises:1243:14)
+    at async file:///D:/FullStackDev/Backedn/fsModule/writingFile/app.js:27:25
+
+
+5:01:53 pm
+ENOENT: no such file or directory, open 'D:\FullStackDev\Backedn\fsModule\writingFile\dev.jpg'
+Error: ENOENT: no such file or directory, open 'D:\FullStackDev\Backedn\fsModule\writingFile\dev.jpg'
+    at async open (node:internal/fs/promises:639:25)
+    at async readFile (node:internal/fs/promises:1243:14)
+    at async file:///D:/FullStackDev/Backedn/fsModule/writingFile/app.js:27:25

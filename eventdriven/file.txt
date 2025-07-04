@@ -1,0 +1,78 @@
+In Node.js, event-driven and EventEmitter architecture are core concepts that enable asynchronous and non-blocking programming, especially useful for building scalable I/O-heavy applications like web servers or real-time apps.
+��� 1. What is Event-Driven Architecture in Node.js?
+
+Event-driven means your application responds to events, rather than executing code line by line. Events can be:
+
+    User actions (e.g., clicking a button)
+
+    System events (e.g., data received from a network)
+
+    Application-specific signals (e.g., "database connected")
+
+��� Example Workflow:
+
+    Register a listener for an event (on or once).
+
+    Emit the event when something happens (emit).
+
+    The listener function runs in response.
+
+This is the observer pattern in action.
+��� 2. What is EventEmitter in Node.js?
+
+Node.js provides a core module called events, and within it, the EventEmitter class forms the backbone of its event-driven system.
+Key Methods:
+Method	Purpose
+on(eventName, listener)	Register a listener for an event
+emit(eventName, [...args])	Emit (trigger) an event
+once(eventName, listener)	Register a one-time listener
+removeListener(eventName, listener)	Remove a listener
+��� Example Code:
+
+const EventEmitter = require('events');
+
+const myEmitter = new EventEmitter();
+
+// Registering a listener
+myEmitter.on('greet', (name) => {
+  console.log(`Hello, ${name}!`);
+});
+
+// Emitting the event
+myEmitter.emit('greet', 'Prath');
+
+Output:
+
+Hello, Prath!
+
+��� Real-world Use Cases in Node.js
+Use Case	Example
+HTTP Server	Request and response events
+Streams	Events like data, end, error
+Custom Apps	Login events, chat messages, task queues
+��� Why It's Powerful
+
+    Non-blocking I/O: Instead of waiting, Node.js reacts when the result is ready.
+
+    Scalability: Efficiently handles thousands of connections.
+
+    Clean modular code: Helps decouple functionality using listeners.
+
+⚙️ Custom EventEmitter Example with Class
+
+const EventEmitter = require('events');
+
+class ChatApp extends EventEmitter {
+  sendMessage(user, message) {
+    this.emit('message', { user, message });
+  }
+}
+
+const chat = new ChatApp();
+
+chat.on('message', ({ user, message }) => {
+  console.log(`${user} says: ${message}`);
+});
+
+chat.sendMessage('Luc', 'Hey! This is cool.');
+?

@@ -1,0 +1,17 @@
+{
+  "name": "@pratham2811/word-count-cli",
+  "version": "1.0.3",
+  "description": "A simple CLI to count words in a file",
+  "bin": {
+    "word-count": "./index.js"
+  },
+  "type": "module",
+  "author": "pratham2811",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@pratham2811/word-count-cli": "^1.0.3"
+  }
+}

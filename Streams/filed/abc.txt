@@ -1,0 +1,55 @@
+From line 20:
+
+Problem:
+You opened fileHandle with "w" (write) mode:
+
+A file opened in write-only mode cannot be read from. Attempting to call .read() on a write-only handle will throw an error like:
+EBADF: bad file descriptor, read
+
+How to fix:
+If you want to read from "text.txt", open it in read ("r") or read-write ("r+") mode:
+
+Or, only use .read() on handles opened for reading.
+
+Summary:
+You cannot read from a file handle opened in write-only mode. Change the mode to "r" or "r+" if you want to read.
+From line 20:
+
+Problem:
+You opened fileHandle with "w" (write) mode:
+
+A file opened in write-only mode cannot be read from. Attempting to call .read() on a write-only handle will throw an error like:
+EBADF: bad file descriptor, read
+
+How to fix:
+If you want to read from "text.txt", open it in read ("r") or read-write ("r+") mode:
+
+Or, only use .read() on handles opened for reading.
+
+Summary:
+You cannot read from a file handle opened in write-only mode. Change the mode to "r" or "r+" if you want to read.From line 20:
+
+Problem:
+You opened fileHandle with "w" (write) mode:
+
+A file opened in write-only mode cannot be read from. Attempting to call .read() on a write-only handle will throw an error like:
+EBADF: bad file descriptor, read
+
+How to fix:
+If you want to read from "text.txt", open it in read ("r") or read-write ("r+") mode:
+
+Or, only use .read() on handles opened for reading.
+
+Summary:
+You cannot read from a file handle opened in write-only mode. Change the mode to "r" or "r+" if you want to read.From line 20:
+
+Problem:
+You opened fileHandle with "w" (write) mode:
+
+A file opened in write-only mode cannot be read from. Attempting to call .read() on a write-only handle will throw an error like:
+EBADF: bad file descriptor, read
+
+How to fix:
+If you want to read from "text.txt", open it in read ("r") or read-write ("r+") mode:
+
+Or, only use .read() on handles opened for reading.
