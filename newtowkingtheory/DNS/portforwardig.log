@@ -1,0 +1,6 @@
+Browser request to → http://mycoolapp.in
+DNS A-record → 49.32.101.22
+Router receives request on port 80
+Router sees port forwarding rule
+→ Forwards traffic to laptop (192.168.0.102:3000)
+→ Server responds
