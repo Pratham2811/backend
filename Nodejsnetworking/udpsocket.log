@@ -1,0 +1,154 @@
+// ✅ Your Line:
+// js
+// Copy
+// Edit
+// const socket = dgram.createSocket("udp4");
+// You're asking:
+
+// Why are we using createSocket()?
+// Why not just new Socket()?
+// What is really happening here?
+
+// Let’s explain this line by line, starting from the basics.
+
+// 🔷 1. What is dgram?
+// dgram is a built-in Node.js module that helps you create UDP sockets.
+
+// js
+// Copy
+// Edit
+// import dgram from "node:dgram";
+// ✅ It's like including a C++ header:
+
+// cpp
+// Copy
+// Edit
+// #include <dgram> // (hypothetical)
+// 🔷 2. What is createSocket('udp4')?
+// createSocket() is a function that creates and gives you back a socket object.
+
+// In C++ terms, it's like:
+
+// cpp
+// Copy
+// Edit
+// Socket* socket = createSocket("udp4");
+// You’re not directly creating the Socket object with new Socket() because:
+
+// Node.js wants to hide complexity.
+
+// It does setup for you behind the scenes.
+
+// It’s a factory function (a function that returns objects).
+
+// 🔷 3. What is a Factory Function?
+// A factory function is a function that returns an object. Example:
+
+// 🔸 JavaScript:
+// js
+// Copy
+// Edit
+// function createCar(model) {
+//     return {
+//         type: "Car",
+//         model: model,
+//         drive() {
+//             console.log("Driving...");
+//         }
+//     };
+// }
+
+// const car = createCar("Tata");
+// car.drive(); // Output: Driving...
+// 🔸 Same in C++:
+// cpp
+// Copy
+// Edit
+// class Car {
+// public:
+//     string model;
+//     void drive() {
+//         cout << "Driving...\n";
+//     }
+// };
+
+// Car* createCar(string model) {
+//     Car* car = new Car();
+//     car->model = model;
+//     return car;
+// }
+// This is exactly what Node.js is doing.
+
+// 🔷 4. What does dgram.createSocket('udp4') do?
+// Internally, Node.js might do something like this:
+
+// js
+// Copy
+// Edit
+// class Socket extends EventEmitter {
+//     constructor(type) {
+//         super();
+//         this.type = type;
+//     }
+
+//     send() {
+//         // send data
+//     }
+
+//     bind() {
+//         // bind to port
+//     }
+// }
+
+// function createSocket(type) {
+//     return new Socket(type);
+// }
+// So when you write:
+
+// js
+// Copy
+// Edit
+// const socket = dgram.createSocket("udp4");
+// ✅ You are getting a Socket object back
+// ✅ This socket can:
+
+// Call .send(), .bind(), .close() (like C++ member functions)
+
+// Use .on("message", fn) because it inherits from EventEmitter
+
+// 🔷 5. Why not just use new Socket()?
+// Because:
+
+// Socket is not directly exposed to you in dgram.
+
+// Node.js wants to keep the API clean and simple.
+
+// They give you one entry point: dgram.createSocket()
+
+// This helps Node.js:
+
+// Hide internals from developers
+
+// Decide later if they want to change implementation (like using a new class for IPv6)
+
+// ✅ In Simple Words:
+// js
+// Copy
+// Edit
+// const socket = dgram.createSocket('udp4');
+// means:
+
+// “Give me a ready-to-use UDP socket object. I don’t care how you build it internally.”
+
+// It’s just like in C++:
+
+// cpp
+// Copy
+// Edit
+// Socket* socket = createSocket("udp4"); // Don’t worry about which class – just use it!
+// ✅ Summary:
+// Concept	JavaScript	C++ Equivalent
+// Factory Function	createSocket('udp4')	createSocket("udp4")
+// Class	class Socket extends EventEmitter {}	class Socket { ... };
+// Member Functions	socket.send(), socket.bind()	socket->send(), socket->bind()
+// Event Handling	socket.on("message", fn)	virtual onMessage() (custom code)
