@@ -11,6 +11,8 @@ socket.on("message",(a,b)=>{
 
 //socket is object which is event emitter 
 socket.on('listening',()=>{
+    console.log(socket.address());
+    
     console.log("listening the port ");
     
 })
