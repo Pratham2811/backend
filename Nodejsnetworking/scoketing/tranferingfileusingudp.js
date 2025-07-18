@@ -6,18 +6,18 @@ import { readFile } from "node:fs/promises";
  const content=createReadStream("text.txt",{
     highWaterMark:1000,
  });
- content.on('data',(chunk)={
+ content.on('data',(chunk)=>{
 
- })
-
-
- socket.send(content,4000,"192.168.43.199",()=>{
-    console.log("msg sent succesfully yes");
+ socket.send(chunk,4000,"192.168.47.87",()=>{
+    console.log("chunk sent succesfully yes: ",chunk.toString());
     
  })
+ })
+
+
  socket.on('message',(msg,rinfo)=>{
-    
-    console.log(msg);
+   
+    console.log(msg.toString());
     console.log(rinfo);
     
     
