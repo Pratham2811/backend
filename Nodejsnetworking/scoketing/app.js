@@ -3,11 +3,17 @@ import { createWriteStream } from "node:fs";
 import { writeFile } from "node:fs/promises";
 
 const socket=dgram.createSocket("udp4")
-     const writeStream=createWriteStream("writtenbystream2.txt")
+     const writeStream=createWriteStream("writtenbystream2.mp4")
 socket.on("message",(msg,rinfo)=>{
-    if(msg.toString()=='EOF'){
+    if(msg.toString()==='EOF'){
          socket.send("Chunk Recived succesfully on server",rinfo.port,rinfo.address)
-    }else{writeStream.write(msg)}
+    }else{
+        writeStream.write(msg)
+        console.log("Chunk Written");
+        
+    }
+        
+    
     
 
     
