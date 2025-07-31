@@ -32,7 +32,14 @@ const server=net.createServer((socket)=>{
     //     return;
     // }
 
-    
+     const dataHandler=(data)=>{
+    const message=data.toString()
+      clientsList.forEach((client)=>{
+    if(client.socket!==socket){
+        client.socket.write(`${userName }: ${message} `)
+    }
+   })
+   }
     if(message.startsWith("FILE:")){
  
         
@@ -86,14 +93,7 @@ const server=net.createServer((socket)=>{
         })
         
     }
-   const dataHandler=(data)=>{
-    const message=data.toString()
-      clientsList.forEach((client)=>{
-    if(client.socket!==socket){
-        client.socket.write(`${userName }: ${message} `)
-    }
-   })
-   }
+  
   })
    socket.on('error', (err) => {
   clientsList = clientsList.filter(client => client !== socket);
