@@ -2,7 +2,7 @@ import { Socket } from "node:dgram";
 import path from "node:path";
 import {  createReadStream, createWriteStream, statSync } from "node:fs";
 import net from "node:net"
-const HOST='192.168.71.87'
+const HOST='192.168.165.87'
 const PORT=4000;
 
 const client=net.createConnection({port:PORT,host:HOST},()=>{
@@ -14,23 +14,35 @@ const client=net.createConnection({port:PORT,host:HOST},()=>{
 client.on("data",(data)=>{
 
 
-    const message=data.toString();
-    console.log(message);
-    
-    if(message.startsWith("FILE:")){
-        const parts=message.split(":")
+
+
+      const dataHandler=(data)=>{
+    const message=data.toString()
+     console.log(message);
+     
+   }
+    if(data.toString().startsWith("FILE:")){
+        const parts=data.toString().split(":")
         const fileName=parts[1]
         const fileSize=parseInt(parts[2],10)
         let receivedBytes=0;
+        client.removeAllListeners("data",dataHandler)
         const writeStream=createWriteStream(`recivedfromClient_${fileName}`)
-        writeStream.write(data)
+        client.on("data",(data)=>{
+            writeStream.write(data)
         receivedBytes+=data.length
-        if(receivedBytes>=fileSize){
+         if(receivedBytes>=fileSize){
             writeStream.end(()=>{
                 console.log("File saved sent by client");
+                client.on("data",dataHandler)
                 
             })
         }
+        })
+       
+    }else{
+        console.log(data.toString());
+        
     }
 
 
@@ -68,7 +80,7 @@ client.on("data",(data)=>{
 
 process.stdin.on("data",(input)=>{
     const inputString=input.toString().trim()
-    client.write(inputString)
+   
     if(inputString==="/send"){
          const filePath="D:\\Courses\\Algorithm\\MIT algorithm\\3.mp4"
  const filename=path.basename(filePath)//gives us th basename of file like here = 3.mp4
@@ -83,5 +95,8 @@ readStream.on('end',()=>{
     console.log("File stream finished sending");
     
 })
+
+    }else{
+        client.write(inputString)
     }
 })
