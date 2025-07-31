@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Title</title>
+</head>
+<body>
+ 
+</body>
+<script type="module">
+    const Response=await fetch("http://192.168.165.87:4000",{
+         method:'POST',
+         body:"Hii, How are you guys"
+    })
+   const data=await Response.text()
+   console.log("Message from the server: ",data)
+</script>
+</html>
