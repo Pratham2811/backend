@@ -1,15 +1,16 @@
 import { diffieHellman } from "node:crypto";
-import { createReadStream } from "node:fs";
+import { createReadStream, read } from "node:fs";
 import { open } from "node:fs/promises";
 import net from "node:net";
 
 const server = net.createServer( async(socket) => {
  const fileHandle=await open("D:\\Fullstack\\Backend\\Nodejsnetworking\\HTTP\\creatingmyown\\Algorithm.mp4")
   const readStream=fileHandle.createReadStream({
-    highWaterMark:1024*1024,
+    highWaterMark:60,
   });
   const stat= await fileHandle.stat()//we get propties from stat it throws an object 
   const{size}=await fileHandle.stat()
+
     console.log(size);
   
 
@@ -30,7 +31,22 @@ const server = net.createServer( async(socket) => {
   // );
 
   //creating readstream using open ( from fs promises)
- 
+  //control speed of transmitting the data 
+//  readStream.on("data",(data)=>{
+//        socket.write(data)
+//        readStream.pause();
+//        setTimeout(()=>{
+//         readStream.resume();
+//        },50)
+//  })
+readStream.on("pause",()=>{
+  console.log("Paused by browser ");
+  
+})
+readStream.on("resume",()=>{
+  console.log("resume by browser ");
+
+})
   readStream.pipe(socket);
   readStream.on("end", () => {
     console.log("File ended");
