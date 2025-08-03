@@ -2,7 +2,7 @@ import { Socket } from "node:dgram";
 import path from "node:path";
 import {  createReadStream, createWriteStream, statSync } from "node:fs";
 import net from "node:net"
-const HOST='192.168.165.87'
+const HOST='192.168.43.199'
 const PORT=4000;
 
 const client=net.createConnection({port:PORT,host:HOST},()=>{
@@ -89,7 +89,6 @@ process.stdin.on("data",(input)=>{
  //sending header to server
  const header=`FILE:${filename}:${fileSize}`
  client.write(header)
- const readStream=createReadStream(filePath);
 readStream.pipe(client)
 readStream.on('end',()=>{
     console.log("File stream finished sending");

@@ -12,13 +12,6 @@ socket.on("message",(msg,rinfo)=>{
         console.log("Chunk Written");
         
     }
-        
-    
-    
-
-    
-   
-    
 })
 socket.on('error',(err)=>{
     console.log(err.stack);
