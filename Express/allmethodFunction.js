@@ -4,6 +4,10 @@ const app=express();
 const port=4000;
 app.disable('x-powered-by');        
    console.log(app.all);
+   //what is app.use() and app.all() in express.js?
+   //lets learn it 
+   //app.use() is used to mount middleware functions at a specific path,
+   //while app.all() is used to handle all HTTP methods for a specific route.
    
 app.use((req, res, next)=>{
     if(req.method==='GET'){
