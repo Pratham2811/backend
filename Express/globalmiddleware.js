@@ -17,32 +17,41 @@ console.log(app.all);
 //this route is called when the user tries to login
 
 
+//JSON body  parsing/ we are doing parsing of the request body here (custom middleware)//not good if there is a lot of sata then it will fail
+//this is custom parsing middleware that parses the request body and attaches it to the request object
+app.use(express.json()); // Built-in middleware to parse JSON bodies 
 
-app.use((req, res, next) => {
-      console.log("This is a middleware function that runs for every request  and every request url ");
-    //  console.log(req.url);
-     const [url,queryParameter]=req.url.split("?")
-   
-     const queryParams={}
-     const params=queryParameter?.split("&")
-     console.log(params);
-     params.forEach((param)=>{
-      const [key, value]=param.split("=")
-      queryParams.key=value;
-        })
-        console.log(queryParams);
-        
-   
-     res.write("Hii")
-     next()
-     
-       // Call next() to pass control to the next middleware or route handler
-})
+
+// app.use((req, res, next) => {
+//       console.log("This is a middleware function that runs for every request  and every request url ");
+//     //  console.log(req.url);
+//      req.on("data", (data) => {
+//       const reqBody=JSON.parse(data.toString())
+//     req.body = reqBody; // Attach the parsed body to the request object
+//   });   
+//    req.on("end", () => {
+//       console.log("Request body parsed successfully");
+//      next()});
+//        // Call next() to pass control to the next middleware or route handler
+// })
+
+
 app.get('/user', (req, res, next) => {
   console.log("This middleware is user middleware");  
   res.end("Prathamesh Madane\n");
   next();
 })
+
+
+app.post('/user', (req, res, next) => {
+  console.log("This middleware is user post middleware"); 
+  res.end("Prathamesh Madane from post method\n");
+  console.log(req.body); // Access the parsed body
+  
+  next()
+});
+
+  
 app.get('/login', (req, res, next) => {
   console.log("This middleware is called for every request to /");  
   res.end("Hello World from Express login route\n");
