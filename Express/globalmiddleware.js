@@ -22,40 +22,40 @@ console.log(app.all);
 app.use(express.json()); // Built-in middleware to parse JSON bodies 
 
 
-// app.use((req, res, next) => {
-//       console.log("This is a middleware function that runs for every request  and every request url ");
-//     //  console.log(req.url);
-//      req.on("data", (data) => {
-//       const reqBody=JSON.parse(data.toString())
-//     req.body = reqBody; // Attach the parsed body to the request object
-//   });   
-//    req.on("end", () => {
-//       console.log("Request body parsed successfully");
-//      next()});
-//        // Call next() to pass control to the next middleware or route handler
+app.use((req, res, next) => {
+     req.on("data", (data) => {
+      const reqBody=JSON.parse(data.toString())
+    req.body = reqBody; // Attach the parsed body to the request object
+  });   
+   req.on("end", () => {
+      console.log("Request body parsed successfully");
+     next()});
+       // Call next() to pass control to the next middleware or route handler
+})
+
+
+// app.get('/user', (req, res, next) => {
+//   console.log("This middleware is user middleware");  
+//   res.end("Prathamesh Madane\n");
+//   next();
 // })
 
 
-app.get('/user', (req, res, next) => {
-  console.log("This middleware is user middleware");  
-  res.end("Prathamesh Madane\n");
-  next();
-})
-
-
-app.post('/user', (req, res, next) => {
-  console.log("This middleware is user post middleware"); 
-  res.end("Prathamesh Madane from post method\n");
-  console.log(req.body); // Access the parsed body
+// app.post('/user', (req, res, next) => {
+//   console.log("This middleware is user post middleware"); 
+//   res.end("Prathamesh Madane from post method\n");
+//   console.log(req.body); // Access the parsed body
   
-  next()
-});
+//   next()
+// });
 
   
-app.get('/login', (req, res, next) => {
-  console.log("This middleware is called for every request to /");  
-  res.end("Hello World from Express login route\n");
-})
+// app.get('/login', (req, res, next) => {
+//   console.log("This middleware is called for every request to /");  
+//   res.end("Hello World from Express login route\n");
+// })
+// const jsonParser = express.json();
+// console.log(jsonParser);
 
 app.listen(port,()=>{
   
