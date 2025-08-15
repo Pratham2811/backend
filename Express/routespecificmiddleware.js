@@ -16,10 +16,12 @@ const port = 4000;
 //   console.log("Middleware for /api/users");
 //   res.send("Done");
 // });
-
+app.use(express.json())
 app.use("/admin", (req, res, next) => {
-  if(req.body==="admin"){
+  if(req.body.password==="admin"){
     next();
+  }else{
+    res.end("Access denied");
   }
 });
 app.use("/admin", (req, res, next) => {
