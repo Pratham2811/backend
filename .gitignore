@@ -1,5 +1,10 @@
 node_modules/
 **/node_modules/
+.pdf
+.mkv
+.png
+.jpeg
+.JPG
 *.mp4
 *.zip
 *.exe
