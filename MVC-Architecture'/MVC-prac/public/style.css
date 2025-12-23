@@ -1,0 +1,9 @@
+li{ 
+    display: flex;
+    align-items:center;
+    
+    margin-bottom:  0.5rem;;
+}
+span{
+    margin-right: 0.5rem;
+}
