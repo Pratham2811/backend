@@ -5,7 +5,7 @@
 // console.log("mongodb is connecting");
 
 // mongoose.set('autoCreate',false)
-import './models/userModel.js'
-import './db.js'
 
+import './db.js'
+import './models/userModel.js'
 console.log("App.js is running ");
