@@ -1,7 +1,8 @@
 import User from "./models/userModel.js";
 
-const user= await User.findOne({name:"Prathamesh madane"})
-console.log(user.schema.methods.isAdult());
+const user= await User.findOne({name:"sansa"})
+console.log(user.isAdult());
+console.log(user.userSummary("full"));
 
 
 

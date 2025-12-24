@@ -28,6 +28,27 @@ const userSchema=new Schema(
         default:null
     }
     },
+    {
+        methods:{
+           isAdult:function(){
+           return  this.age>=18;
+           },
+           userSummary:function(options){
+            if(options==='full'){
+                return `${this.name} is ${this.age} yeard old.the hoobies of the ${this.name} are ${this.hobbies.join(',')}.`
+            }else{
+                return `${this.name} is ${this.age} old.`
+            }
+           }
+        
+        },
+        statics:{
+            findAdults:function(){
+                return this.find({age:{$gte:18}})
+            }
+        },
+        
+    },
     
     {
         strict:'throw',
@@ -38,7 +59,5 @@ const userSchema=new Schema(
 
 
 const User=model("User",userSchema);
-userSchema.methods.isAdult = function () {
-  return this.age >= 18
-}
+
 export default User
