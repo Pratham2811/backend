@@ -8,4 +8,6 @@
 
 import './db.js'
 import './models/userModel.js'
+import './crud/crud.js'
+import './methods.js'
 console.log("App.js is running ");
