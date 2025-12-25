@@ -1,19 +1,20 @@
 import express from "express";
 import todoRoutes from "./routes/todoRoutes.js";
-import { connectDB } from "./db.js";
+// import { connectDB } from "./db.js";
 import reactViews from "express-react-views"; 
 import { createEngine } from "express-react-views";
+import "./config/db.js"
 const app = express();
 
-const db = await connectDB();
+// const db = await connectDB();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}))
 app.use(express.static("./public"))
-app.use((req, res, next) => {
-  req.db = db;
-  next();
-});
+// app.use((req, res, next) => {
+//   req.db = db;
+//   next();
+// });
 // ✅ Tell express where the views are
 app.set("views",  "./views");
 
