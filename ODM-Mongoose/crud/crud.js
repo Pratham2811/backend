@@ -1,10 +1,12 @@
-import User from "../models/userModel.js";
+// import User from "../models/userModel.js";
 // const user=new User({
-//         name:"sansa",
-//         email:"  sansa@gmail.com ",
-//         age:20,
-//         hobbies:["Queen of north "],
-//         parentId:"694ad37393999ec2e5341250"
+//         name:"Aditya",
+//         email:"  aditya@gmail.com ",
+//         age:12,
+//         phone:"9999999999",
+//         hobbies:["cricket"],
+//         parentId:"6953a06a9b80921866975753"
+       
 // })
 // const writeOnDB= await user.save()
 // console.log(writeOnDB);

@@ -8,8 +8,9 @@
 
 import './db.js'
 import './models/userModel.js'
-// import './crud/crud.js'
+import './crud/crud.js'
 // import './methods.js'
 // import "./Query/app.js"
 import "./Query/document.js"
+import "./populate.js"
 console.log("App.js is running ");

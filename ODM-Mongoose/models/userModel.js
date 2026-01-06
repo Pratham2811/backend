@@ -17,7 +17,21 @@ const userSchema=new Schema(
         type:Number,
         required:true,
         min:12,
+        // validate:{
+        //     validator: function(){
+        //         return this.age%2==0;
+
+        //     }
+        // }
         
+    },
+    phone:{
+        type:String,
+        trim:true,
+        validate:{
+            validator: v => /^[6-9]\d{9}$/.test(v),
+            message:"Enter valid Mobile number "
+        }
     },
     hobbies:[String],
     parentId:{
@@ -25,7 +39,8 @@ const userSchema=new Schema(
         required:function(){
           return   this.age<16
         },
-        default:null
+        default:null,
+        ref:'User',
     }
     },
     {
@@ -52,7 +67,7 @@ const userSchema=new Schema(
     
     {
         strict:'throw',
-        timestamps:true,
+        timeStamps:true,
     
     }
  )
