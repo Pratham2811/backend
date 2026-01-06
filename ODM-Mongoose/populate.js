@@ -3,9 +3,15 @@ import User from "./models/userModel.js";
 const data=await User.findOne({name:'Aditya'}).populate("parentId");
 console.log(data);
 
-const data2=await User.findOne({name:"Aditya"}).populate({
+const data2= await  User.findOne({name:"Aditya"}).populate({
     path:"parentId",
-    select:"name age -_id"
+    select:"name age -_id",
+    populate:{
+        path:"oraganisaztionId",
+        populate:{
+            path:"employeeId"
+        }
+    }
 })
 
-console.log(data2);
+console.log(data2._mongooseOptions.populate.parentId);
