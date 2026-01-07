@@ -1,78 +1,92 @@
-import  {model , Schema } from "mongoose"
-const userSchema=new Schema(
-   {
-       name:{
-       type:String,
-       required:true,
-       min:3,
-       trim:true,
-    },
-    email:{
-        type:String,
-        required:[true,"please enter email id to proceed"],
-        // match:"^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
-       trim:true
-    },
-    age:{
-        type:Number,
-        required:true,
-        min:12,
-        // validate:{
-        //     validator: function(){
-        //         return this.age%2==0;
+import { model, Schema } from "mongoose";
 
-        //     }
-        // }
-        
+const userSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      min: 3,
+      trim: true,
+      alias: "n",
     },
-    phone:{
-        type:String,
-        trim:true,
-        validate:{
-            validator: v => /^[6-9]\d{9}$/.test(v),
-            message:"Enter valid Mobile number "
+
+    email: {
+      type: String,
+      required: [true, "please enter email id to proceed"],
+      trim: true,
+    },
+
+    age: {
+      type: Number,
+      required: true,
+      min: 12,
+    },
+
+    phone: {
+      type: String,
+      trim: true,
+      validate: {
+        validator: v => /^[6-9]\d{9}$/.test(v),
+        message: "Enter valid Mobile number",
+      },
+    },
+
+    hobbies: [String],
+
+    parentId: {
+      type: Schema.Types.ObjectId,
+      required: function () {
+        return this.age < 16;
+      },
+      default: null,
+      ref: "User",
+    },
+  },
+  {
+    strict: "throw",
+    timestamps: true,
+
+    methods: {
+      userSummary(options) {
+        if (options === "full") {
+          return `${this.name} is ${this.age} years old. Hobbies: ${this.hobbies.join(", ")}`;
         }
+        return `${this.name} is ${this.age} years old.`;
+      },
     },
-    hobbies:[String],
-    parentId:{
-        type:Schema.ObjectId,
-        required:function(){
-          return   this.age<16
-        },
-        default:null,
-        ref:'User',
-    }
+
+    statics: {
+      findAdults() {
+        return this.find({ age: { $gte: 18 } });
+      },
     },
-    {
-        methods:{
-           isAdult:function(){
-           return  this.age>=18;
-           },
-           userSummary:function(options){
-            if(options==='full'){
-                return `${this.name} is ${this.age} yeard old.the hoobies of the ${this.name} are ${this.hobbies.join(',')}.`
-            }else{
-                return `${this.name} is ${this.age} old.`
-            }
-           }
-        
+
+    virtuals: {
+      isAdult: {
+        get() {
+          return this.age >= 18;
         },
-        statics:{
-            findAdults:function(){
-                return this.find({age:{$gte:18}})
-            }
+      },
+       getHobbies: {
+        get() {
+            let concanitatedHobbies=this.hobbies.join(",")
+          return concanitatedHobbies;
         },
-        
+        set(value){
+          let hobbiesArray=value.split(",")
+          console.log(hobbiesArray);
+          for(const hobby of hobbiesArray){
+            this.hobbies.push(hobby.trim())
+          }
+          
+        }
+      },
     },
-    
-    {
-        strict:'throw',
-        timeStamps:true,
-    
-    }
- )
 
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+);
 
-const User=model("User",userSchema);
-
-export default User
+const User = model("User", userSchema);
+export default User;
