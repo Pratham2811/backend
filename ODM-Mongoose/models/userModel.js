@@ -87,6 +87,9 @@ const userSchema = new Schema(
     toObject: { virtuals: true },
   }
 );
-
+userSchema.pre("save",async function(next){
+  this.find({age:{$gte:18}})
+  
+})
 const User = model("User", userSchema);
 export default User;

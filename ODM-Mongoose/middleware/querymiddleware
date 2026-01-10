@@ -1,0 +1,146 @@
+Query Middleware in Mongoose — Clear, Exact, and System-Level
+
+In Mongoose, query middleware are hooks that run on the query object, before or after a query is executed against MongoDB.
+
+They do not work with actual document data.
+They work with query instructions.
+
+Formal Definition
+
+Query middleware intercepts and modifies database queries (find, update, delete) before or after they are executed, without loading documents into memory.
+
+What this Refers To (Critical)
+
+Inside query middleware:
+
+this === Query object
+
+
+Not a document.
+Not actual data.
+
+This means:
+
+You can modify filters
+
+You can modify options
+
+You can inject constraints
+
+But you cannot read document fields.
+
+Query Middleware Lifecycle
+Example
+schema.pre("find", function () {
+  this.where({ isDeleted: false });
+});
+
+Execution Flow
+
+User.find() creates a query object
+
+pre("find") runs
+
+Query is modified
+
+MongoDB executes the query
+
+post("find") runs
+
+Supported Query Middleware Hooks
+
+Most common:
+
+Operation	Hook
+find	pre, post
+findOne	pre, post
+updateOne	pre, post
+deleteOne	pre, post
+findOneAndUpdate	pre, post
+countDocuments	pre, post
+
+Regex support:
+
+schema.pre(/^find/, fn); // runs on find, findOne, findById
+
+Real Production Example: Soft Delete
+schema.pre(/^find/, function () {
+  this.where({ deletedAt: null });
+});
+
+Why Query Middleware Is Required
+
+Works on all queries
+
+No document loading
+
+Enforced globally
+
+Cannot be bypassed accidentally
+
+Example: Enforcing Tenant Isolation
+schema.pre(/^find/, function () {
+  this.where({ tenantId: this.getOptions().tenantId });
+});
+
+What Query Middleware CAN Do
+
+Modify filters (this.where)
+
+Add projections
+
+Set options (limit, lean, hint)
+
+Log queries
+
+Enforce access rules
+
+What Query Middleware CANNOT Do
+
+Access document fields
+
+Hash passwords
+
+Validate schema fields
+
+Call .save()
+
+Use this.isModified()
+
+Query vs Document Middleware (Direct Contrast)
+Aspect	Query Middleware	Document Middleware
+this	Query object	Document
+Data available	Filters only	Full document
+Runs on update queries	Yes	No
+Validation	❌	✅
+Field mutation	❌	✅
+Common Mistake (Very Important)
+schema.pre("updateOne", function () {
+  this.password = hash("123"); // ❌ WRONG
+});
+
+
+Why?
+
+No document exists
+
+You do not know which documents are affected
+
+This logic is unsafe
+
+Correct Pattern When Updating Sensitive Fields
+schema.pre("updateOne", function () {
+  const update = this.getUpdate();
+  if (update.password) {
+    update.password = hash(update.password);
+    this.setUpdate(update);
+  }
+});
+
+
+Still dangerous. Best avoided.
+
+Mental Model (Lock This In)
+
+Query middleware = policy enforcement on database operations
+Document middleware = data integrity enforcement on individual records
