@@ -24,6 +24,8 @@ const userSchema = new Schema(
       ],
       lowercase: true,
       trim: true,
+      unique:true,
+      index:true
     },
       // validate: {
       //   validator() {
@@ -81,36 +83,36 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.pre("find", async function (doc) {
-  console.log("Running my query middleware");
-    this.find({age:{$gte:18}})
-    console.log(this);//Query Object
+// userSchema.pre("find", async function (doc) {
+//   console.log("Running my query middleware");
+//     this.find({age:{$gte:18}})
+//     console.log(this);//Query Object
     
-});
-userSchema.pre("save", async function (doc) {
-  console.log("Running my query middleware");
-  console.log(this);//Document Object live in memory   
-});
+// });
+// userSchema.pre("save", async function (doc) {
+//   console.log("Running my query middleware");
+//   console.log(this);//Document Object live in memory   
+// });
 
-userSchema.post(/^find/, async function (doc) { //in post we revice docs in function arg  // runs on find, findOne, findById
-  console.log("Running my query middleware");
+// userSchema.post(/^find/, async function (doc) { //in post we revice docs in function arg  // runs on find, findOne, findById
+//   console.log("Running my query middleware");
  
-  console.log(doc);
+//   console.log(doc);
   
-    // this.find({age:{$gte:18}})
-});
+//     // this.find({age:{$gte:18}})
+// });
 
-userSchema.pre("insertMany",function(next,docs){
-   console.log(this);
-   console.log(docs);
+// userSchema.pre("insertMany",function(next,docs){
+//    console.log(this);
+//    console.log(docs);
    
-})
-userSchema.pre("insertMany",function(next,docs){
-  for (const doc of docs) {
-      console.log(doc);
-      doc.email=doc.email.toLowerCase()
-  }
-})
+// })
+// userSchema.pre("insertMany",function(next,docs){
+//   for (const doc of docs) {
+//       console.log(doc);
+//       doc.email=doc.email.toLowerCase()
+//   }
+// })
 
 const User = model("User", userSchema);
 
